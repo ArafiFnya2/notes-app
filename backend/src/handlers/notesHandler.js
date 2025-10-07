@@ -9,7 +9,7 @@ export const getAllNotesHandler = async (req, res) => {
 };
 
 export const addNoteHandler = async (req, res) => {
-  const { title, content } = req.body;
+  const { title, context } = req.body;
 
   if (!title || !title.trim()) {
     return res.status(400).json({
@@ -21,13 +21,13 @@ export const addNoteHandler = async (req, res) => {
   if (!context || !context.trim()) {
     return res.status(400).json({
       status: "fail",
-      message: "Content is required",
+      message: "Content is required"
     });
   }
 
   const [insertResult] = await pool.query(
     "INSERT INTO notes (title, context) VALUES (?, ?)",
-    [title, content]
+    [title, context]
   );
 
   const [notes] = await pool.query("SELECT * FROM notes WHERE id = ?", [
@@ -37,6 +37,7 @@ export const addNoteHandler = async (req, res) => {
   res.status(201).json({
     status: "success",
     message: "Note created",
+    data: notes[0],
   });
 };
 
