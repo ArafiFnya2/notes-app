@@ -154,11 +154,11 @@ const NoteForm = ({ onAddNote }) => {
 const NoteItem = ({ note, onDelete, onUpdate }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [titleEdit, setTitleEdit] = useState(note.title);
-  const [contentEdit, setContentEdit] = useState(note.context);
+  const [contentEdit, setContentEdit] = useState(note.content);
 
   const handleCancel = () => {
     setTitleEdit(note.title);
-    setContentEdit(note.context);
+    setContentEdit(note.content);
     setIsEditing(false);
   };
 
@@ -202,7 +202,7 @@ const NoteItem = ({ note, onDelete, onUpdate }) => {
           <p className="text-sm text-gray-500">
             ~{showFormattedDate(note.created_at)}
           </p>
-          <p className="mt-2">{note.context}</p>
+          <p className="mt-2">{note.content}</p>
           <div className="mt-4 flex gap-2">
             <button
               className="bg-yellow-500 text-white px-3 py-1 rounded"
