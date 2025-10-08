@@ -9,6 +9,8 @@ export const getAllNotesHandler = async (req, res) => {
 };
 
 export const addNoteHandler = async (req, res) => {
+  console.log("📦 Received body:", req.body); // <-- tambahkan ini
+
   const { title, context } = req.body;
 
   if (!title || !title.trim()) {
@@ -21,7 +23,7 @@ export const addNoteHandler = async (req, res) => {
   if (!context || !context.trim()) {
     return res.status(400).json({
       status: "fail",
-      message: "Content is required"
+      message: "Content is required",
     });
   }
 
@@ -40,6 +42,7 @@ export const addNoteHandler = async (req, res) => {
     data: notes[0],
   });
 };
+
 
 export const getNoteByIdHandler = async (req, res) => {
   const { id } = req.params;
