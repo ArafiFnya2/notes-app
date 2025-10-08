@@ -29,7 +29,7 @@ export const addNoteHandler = async (req, res) => {
     }
 
     const [insertResult] = await pool.query(
-      "INSERT INTO notes (title, context) VALUES (?, ?)",
+      "INSERT INTO notes (title, content) VALUES (?, ?)",
       [title, context]
     );
 
