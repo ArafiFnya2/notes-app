@@ -4,7 +4,7 @@ import { useState } from "react";
 function App() {
   const [notes, setNotes] = useState([]);
 
-  const baseUrl = "https://notes-app-api-ten-eta.vercel.app";
+  const baseUrl = "https://kodein-notes-omega.vercel.app";
 
 
   const fetchNotes = async () => {
@@ -36,7 +36,7 @@ function App() {
 
       console.log(result.data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -45,7 +45,7 @@ function App() {
       const res = await fetch(`${baseUrl}/notes/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title: updateTitle, content: updateContent }),
+        body: JSON.stringify({ title: updateTitle, context: updateContent }),
       });
 
       const result = await res.json();
