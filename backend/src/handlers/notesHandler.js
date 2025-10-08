@@ -9,38 +9,47 @@ export const getAllNotesHandler = async (req, res) => {
 };
 
 export const addNoteHandler = async (req, res) => {
-  console.log("📦 Received body:", req.body); // <-- tambahkan ini
+  try {
+    console.log("📩 Received body:", req.body);
 
-  const { title, context } = req.body;
+    const { title, context } = req.body;
 
-  if (!title || !title.trim()) {
-    return res.status(400).json({
-      status: "fail",
-      message: "Title is required",
+    if (!title || !title.trim()) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Title is required",
+      });
+    }
+
+    if (!context || !context.trim()) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Content is required",
+      });
+    }
+
+    const [insertResult] = await pool.query(
+      "INSERT INTO notes (title, context) VALUES (?, ?)",
+      [title, context]
+    );
+
+    const [notes] = await pool.query("SELECT * FROM notes WHERE id = ?", [
+      insertResult.insertId,
+    ]);
+
+    res.status(201).json({
+      status: "success",
+      message: "Note created",
+      data: notes[0],
+    });
+  } catch (err) {
+    console.error("❌ Error in addNoteHandler:", err);
+    res.status(500).json({
+      status: "error",
+      message: "Internal server error",
+      error: err.message,
     });
   }
-
-  if (!context || !context.trim()) {
-    return res.status(400).json({
-      status: "fail",
-      message: "Content is required",
-    });
-  }
-
-  const [insertResult] = await pool.query(
-    "INSERT INTO notes (title, context) VALUES (?, ?)",
-    [title, context]
-  );
-
-  const [notes] = await pool.query("SELECT * FROM notes WHERE id = ?", [
-    insertResult.insertId,
-  ]);
-
-  res.status(201).json({
-    status: "success",
-    message: "Note created",
-    data: notes[0],
-  });
 };
 
 
