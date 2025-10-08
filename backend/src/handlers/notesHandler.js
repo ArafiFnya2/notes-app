@@ -12,7 +12,7 @@ export const addNoteHandler = async (req, res) => {
   try {
     console.log("📩 Received body:", req.body);
 
-    const { title, context } = req.body;
+    const { title, content } = req.body; // ✅ pakai content
 
     if (!title || !title.trim()) {
       return res.status(400).json({
@@ -21,7 +21,7 @@ export const addNoteHandler = async (req, res) => {
       });
     }
 
-    if (!context || !context.trim()) {
+    if (!content || !content.trim()) {
       return res.status(400).json({
         status: "fail",
         message: "Content is required",
@@ -30,7 +30,7 @@ export const addNoteHandler = async (req, res) => {
 
     const [insertResult] = await pool.query(
       "INSERT INTO notes (title, content) VALUES (?, ?)",
-      [title, context]
+      [title, content] // ✅ pakai content
     );
 
     const [notes] = await pool.query("SELECT * FROM notes WHERE id = ?", [
@@ -51,6 +51,7 @@ export const addNoteHandler = async (req, res) => {
     });
   }
 };
+
 
 
 export const getNoteByIdHandler = async (req, res) => {
