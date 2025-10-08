@@ -25,20 +25,23 @@ function App() {
   }, []);
 
   const addNote = async (newTitle, newContent) => {
-    try {
-      const res = await fetch(`${baseUrl}/notes`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title: newTitle, content: newContent }),
-      });
+  try {
+    const res = await fetch(`${baseUrl}/notes`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title: newTitle, content: newContent }),
+    });
 
-      const result = await res.json();
+    const result = await res.json();
+    console.log(result.data);
 
-      console.log(result.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    // Tambahkan ini 👇
+    setNotes((prev) => [...prev, result.data]);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 
   const handleUpdateNote = async (id, updateTitle, updateContent) => {
     try {
