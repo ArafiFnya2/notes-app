@@ -92,7 +92,7 @@ export const updateNoteByIdHandler = async (req, res) => {
 
   const [updateResult] = await pool.query(
     "UPDATE notes SET title=?, content=? WHERE id=?",
-    [title, context, id]
+    [title, content, id]
   );
 
   const [notes] = await pool.query("SELECT * FROM notes WHERE id = ?", [id]);
