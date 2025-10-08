@@ -9,11 +9,11 @@ const app = express();
 app.use(cors());
 
 app.use(express.json());
-app.use(helloRouter);
-app.use(noteRouter);
+
 
 const port = 3000;
-
+app.use("/", helloRouter);
+app.use("/notes", noteRouter);
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
