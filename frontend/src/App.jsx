@@ -29,7 +29,7 @@ function App() {
       const res = await fetch(`${baseUrl}/notes`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title: newTitle, content: newContent }),
+        body: JSON.stringify({ title: newTitle, context: newContent }),
       });
 
       const result = await res.json();
