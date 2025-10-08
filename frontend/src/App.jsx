@@ -45,7 +45,7 @@ function App() {
       const res = await fetch(`${baseUrl}/notes/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title: updateTitle, context: updateContent }),
+        body: JSON.stringify({ title: updateTitle, content: updateContent }),
       });
 
       const result = await res.json();
