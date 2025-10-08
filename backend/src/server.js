@@ -6,12 +6,13 @@ import cors from "cors";
 
 const app = express();
 
-var corsOptions = {
-  origin: 'https://kodein-notes-omega.vercel.app/',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
+app.use(cors({
+  origin: ["https://kodein-notes-omega.vercel.app"], // domain frontend kamu
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+}));
 
-app.use(cors(corsOptions));
+app.options("*", cors());
 
 app.use(express.json());
 
