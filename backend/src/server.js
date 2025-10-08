@@ -17,7 +17,6 @@ app.options("*", cors());
 app.use(express.json());
 
 
-const port = 3000;
 app.use("/", helloRouter);
 app.use("/notes", noteRouter);
 
