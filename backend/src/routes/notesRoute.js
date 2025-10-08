@@ -1,12 +1,18 @@
-import { getAllNotesHandler, addNoteHandler, getNoteByIdHandler, updateNoteByIdHandler, deleteNoteByIdHandler } from "../handlers/notesHandler.js";
 import express from "express";
+import {
+  getAllNotesHandler,
+  addNoteHandler,
+  getNoteByIdHandler,
+  updateNoteByIdHandler,
+  deleteNoteByIdHandler,
+} from "../handlers/notesHandler.js";
 
 const noteRouter = express.Router();
 
-noteRouter.get("/notes", getAllNotesHandler);
-noteRouter.post("/notes", addNoteHandler); 
-noteRouter.get("/notes/:id", getNoteByIdHandler); 
-noteRouter.put("/notes/:id", updateNoteByIdHandler);
-noteRouter.delete("/notes/:id", deleteNoteByIdHandler);
+noteRouter.get("/", getAllNotesHandler);
+noteRouter.post("/", addNoteHandler);
+noteRouter.get("/:id", getNoteByIdHandler);
+noteRouter.put("/:id", updateNoteByIdHandler);
+noteRouter.delete("/:id", deleteNoteByIdHandler);
 
 export default noteRouter;
