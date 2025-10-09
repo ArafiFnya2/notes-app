@@ -124,7 +124,7 @@ const NoteForm = ({ onAddNote }) => {
 
   return (
     <section className="container max-w-xl px-5 mb-8">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 bg-white/80 backdrop-blur-sm shadow-lg p-6 rounded-2xl border border-gray-100">
         <input
           type="text"
           placeholder="Title"
@@ -163,62 +163,76 @@ const NoteItem = ({ note, onDelete, onUpdate }) => {
   };
 
   return (
-    <div className="rounded-lg shadow-md bg-white w-[300px] p-5">
-      {isEditing ? (
-        <>
-          <input
-            value={titleEdit}
-            type="text"
-            className="w-full rounded-sm outline outline-gray-400 p-2"
-            onChange={(e) => setTitleEdit(e.target.value)}
-          />
+ <div
+  className="rounded-2xl shadow-lg bg-white/80 backdrop-blur-md w-[300px] p-5 
+             transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl border border-gray-200"
+>
+  {isEditing ? (
+    <>
+      <input
+        value={titleEdit}
+        type="text"
+        className="w-full rounded-lg border border-gray-300 p-2 text-gray-800 
+                   focus:outline-none focus:ring-2 focus:ring-blue-400"
+        onChange={(e) => setTitleEdit(e.target.value)}
+      />
 
-          <textarea
-            value={contentEdit}
-            type="text"
-            className="w-full rounded-sm outline outline-gray-400 p-2 mt-2"
-            onChange={(e) => setContentEdit(e.target.value)}
-          />
-          <div className="mt-4 flex gap-2">
-            <button
-              className="bg-gray-500 text-white px-3 py-1 rounded"
-              onClick={handleCancel}
-            >
-              Cancel
-            </button>
-            <button className="bg-green-500 text-white px-3 py-1 rounded"
-            onClick={() => {
-              onUpdate(note.id, titleEdit, contentEdit);
-              setIsEditing(false);
-            }}
-            >
-              Save
-            </button>
-          </div>
-        </>
-      ) : (
-        <>
-          <p className="font-medium text-xl">{note.title}</p>
-          <p className="text-sm text-gray-500">
-            ~{showFormattedDate(note.created_at)}
-          </p>
-          <p className="mt-2">{note.content}</p>
-          <div className="mt-4 flex gap-2">
-            <button
-              className="bg-yellow-500 text-white px-3 py-1 rounded"
-              onClick={() => setIsEditing(true)}
-            >
-              Edit
-            </button>
-            <button className="bg-red-500 text-white px-3 py-1 rounded"
-            onClick={() => onDelete(note.id)}
-            >
-              Delete
-            </button>
-          </div>
-        </>
-      )}
-    </div>
+      <textarea
+        value={contentEdit}
+        className="w-full rounded-lg border border-gray-300 p-2 mt-3 text-gray-700
+                   focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
+        rows="4"
+        onChange={(e) => setContentEdit(e.target.value)}
+      />
+
+      <div className="mt-4 flex gap-2 justify-end">
+        <button
+          className="px-4 py-1.5 rounded-lg bg-gray-100 text-gray-700 font-medium 
+                     hover:bg-gray-200 transition-all"
+          onClick={handleCancel}
+        >
+          Cancel
+        </button>
+        <button
+          className="px-4 py-1.5 rounded-lg bg-green-500 text-white font-medium 
+                     hover:bg-green-600 transition-all"
+          onClick={() => {
+            onUpdate(note.id, titleEdit, contentEdit);
+            setIsEditing(false);
+          }}
+        >
+          Save
+        </button>
+      </div>
+    </>
+  ) : (
+    <>
+      <div className="flex flex-col gap-1">
+        <h3 className="text-xl font-semibold text-gray-800">{note.title}</h3>
+        <p className="text-sm text-gray-400">~ {showFormattedDate(note.created_at)}</p>
+      </div>
+
+      <p className="mt-3 text-gray-700 leading-relaxed">{note.content}</p>
+
+      <div className="mt-5 flex gap-2 justify-end">
+        <button
+          className="px-3 py-1 rounded-lg bg-yellow-400 text-white font-medium 
+                     hover:bg-yellow-500 transition-all"
+          onClick={() => setIsEditing(true)}
+        >
+          Edit
+        </button>
+        <button
+          className="px-3 py-1 rounded-lg bg-red-500 text-white font-medium 
+                     hover:bg-red-600 transition-all"
+          onClick={() => onDelete(note.id)}
+        >
+          Delete
+        </button>
+      </div>
+    </>
+  )}
+</div>
   );
 };
 
